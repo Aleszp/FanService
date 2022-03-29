@@ -1,4 +1,4 @@
-RCDIR=./src/
+SRCDIR=./src/
 INCLUDEDIR=./include/
 OBJDIR=./obj/
 BINDIR=./bin/
