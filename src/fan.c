@@ -1,6 +1,6 @@
 /**************************************************
  * FanService - PWM controlled fan driver for Rapsberry Pi
- * version: alpha-1.0
+ * version: alpha-1.1
  * (c) Aleksander Szpakiewicz-Szatan, 2022
  **************************************************/
 //Use libpigpio to control PWM pins
