@@ -25,7 +25,8 @@ int main(void)
 	   	return status;
 	}
 	
-	signal (SIGTERM, terminate);
+	signal(SIGTERM, terminate);
+	signal(SIGINT, terminate);
 	
 	while(1)
 	{
