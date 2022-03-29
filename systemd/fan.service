@@ -1,0 +1,8 @@
+[Unit]
+Description=PWM controlled fan.
+
+[Service]
+ExecStart/opt/FanService/bin/fanService
+
+[Install]
+WantedBy=multi-user.target
