@@ -5,8 +5,8 @@ BINDIR=./bin/
 
 CXX=gcc
 
-CFLAGS=-pedantic -Wall -std=gnu99 -O3 -I$(INCLUDEDIR) 
-LIBS= -lm -lpigpio -lrt
+CFLAGS=-pedantic -Wall -std=gnu99 -O3 -I$(INCLUDEDIR)
+LIBS=-lpigpio
 
 DEPS = functions.h
 SRCS = fan.c functions.c
@@ -14,12 +14,12 @@ SRCS = fan.c functions.c
 OBJS := $(addprefix $(OBJDIR),$(SRCS:.c=.o))
 SRCS := $(addprefix $(SRCDIR),$(SRCS))
 DEPS := $(addprefix $(INCLUDEDIR),$(DEP))
-	
-fanService: $(OBJS) 
-	$(CXX) $(CFLAGS) $(LIBS) -o $(BINDIR)$@ $^  
+
+fanService: $(OBJS)
+	$(CXX) $(CFLAGS) -o $(BINDIR)$@ $^ $(LIBS)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(DEPS) dirs
-	$(CXX) $(CFLAGS) -c -o $@ $< 
+	$(CXX) $(CFLAGS) -c -o $@ $<
 
 dirs:
 	mkdir -p $(OBJDIR)

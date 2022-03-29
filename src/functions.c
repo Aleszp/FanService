@@ -46,8 +46,8 @@ uint8_t getTemperature()
 	}
 		
 	uint32_t T;
-	fscanf(temp,"%i",&T);
-	fclose();
+	fscanf(temp,"%u",&T);
+	fclose(temp);
 	return(uint8_t) T/1000;
 }
 
@@ -61,7 +61,7 @@ uint8_t calculateDutyCyle(uint8_t T, uint8_t stop, uint8_t min, uint8_t max, uin
 		return max;
 	
 	uint16_t tmp=((Tmax-T)*(max-min));
-	tmp/=(Tmax-Tmin);
+	tmp/=(Tmax-Tstart);
 	tmp+=min;
 	if(tmp>max)
 		tmp=max;

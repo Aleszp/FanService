@@ -1,6 +1,6 @@
 /**************************************************
  * FanService - PWM controlled fan driver for Rapsberry Pi
- * version: alpha-1.3
+ * version: alpha-1.4
  * (c) Aleksander Szpakiewicz-Szatan, 2022
  **************************************************/
 //Use libpigpio to control PWM pins
@@ -20,7 +20,7 @@
 
 int main(void)
 {
-	int status=gpioInitialise()
+	int status=gpioInitialise();
 	if(status<0)
 	{
 	   	fprintf(stderr,"GPIO initialisation failed, error code: %i.\n",status);
@@ -39,7 +39,7 @@ int main(void)
 	gpioHardwarePWM(pinID,100000,0);
 	while(1)
 	{
-		T=getTemperature;
+		T=getTemperature();
 		dutyCycle=calculateDutyCyle(T,stop,min,max,Tstart,Tstop,Tmax);
 		gpioPWM(pinID,dutyCycle);
 		sleep(1);
