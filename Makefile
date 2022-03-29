@@ -8,8 +8,8 @@ CXX=gcc
 CFLAGS=-pedantic -Wall -std=gnu99 -O3 -I$(INCLUDEDIR) 
 LIBS= -lm -lpigpio -lrt
 
-DEPS = 
-SRCS = fan.c
+DEPS = functions.h
+SRCS = fan.c functions.c
 
 OBJS := $(addprefix $(OBJDIR),$(SRCS:.c=.o))
 SRCS := $(addprefix $(SRCDIR),$(SRCS))
