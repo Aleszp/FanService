@@ -17,8 +17,8 @@ void terminate(int signal)
 	exit(signal);
 }
 
-//Loads config parameters, otherwise returns default data
-void loadConfig(uint8_t* stop, uint8_t* min, uint8_t* max, uint8_t* Tstart, uint8_t* Tstop, uint8_t* Tmax)
+//Loads config parameters, otherwise returns default data, stub for future external config support
+void loadConfig(uint8_t* stop, uint8_t* min, uint8_t* max, uint8_t* Tstart, uint8_t* Tstop, uint8_t* Tmax, uint8_t* pinID)
 {
 	//0% duty cycle when stopped
 	*stop=0;
@@ -32,6 +32,8 @@ void loadConfig(uint8_t* stop, uint8_t* min, uint8_t* max, uint8_t* Tstart, uint
 	*Tstop=40;
 	//Set full dutycycle above 70*C
 	*Tmax=70;
+	//Set output pin to 18
+	*pinID=18;
 }
 
 uint8_t getTemperature()
