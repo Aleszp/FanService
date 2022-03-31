@@ -1,6 +1,6 @@
 /**************************************************
  * FanService - PWM controlled fan driver for Rapsberry Pi
- * version: alpha-1.4
+ * version: alpha-1.5
  * (c) Aleksander Szpakiewicz-Szatan, 2022
  **************************************************/
 //Use libpigpio to control PWM pins
@@ -20,30 +20,40 @@
 
 int main(void)
 {
+	AGPLnotice();
 	int status=gpioInitialise();
 	if(status<0)
 	{
 	   	fprintf(stderr,"GPIO initialisation failed, error code: %i.\n",status);
 	   	return status;
 	}
-	
+
 	signal(SIGTERM, terminate);
 	signal(SIGINT, terminate);
-	
-	uint8_t stop=0,min=64,max=255,Tstart=45,Tstop=40,Tmax=70,pinID=18;
-	uint8_t T=0;
-	uint8_t dutyCycle=0;
+
+	uint32_t stop=0,min=64,max=255,Tstart=45,Tstop=40,Tmax=70,pinID=18;
+	uint32_t T=0;
+	uint32_t dutyCycle=0;
 	loadConfig(&stop,&min,&max,&Tstart,&Tstop,&Tmax,&pinID);
 	gpioSetMode(pinID, PI_OUTPUT);
-	gpioSetPWMrange(pinID,max);
-	gpioHardwarePWM(pinID,100000,0);
+	fprintf(stdout,"Freq=%i\n",gpioGetPWMfrequency(pinID));
+	gpioHardwarePWM(pinID,40000,0);
+	fprintf(stdout,"Freq=%i\n",gpioGetPWMfrequency(pinID));
+	fprintf(stdout,"Range=%i\n",gpioGetPWMrealRange(pinID));
+	gpioSetPWMrange(pinID,6250);
+	fprintf(stdout,"Range=%i\n",gpioGetPWMrealRange(pinID));
+	gpioSetPullUpDown(18, PI_PUD_DOWN);
+
 	while(1)
 	{
-		T=getTemperature();
-		dutyCycle=calculateDutyCyle(T,stop,min,max,Tstart,Tstop,Tmax);
+		T=getTemperature()/1000;
+		dutyCycle=calculateDutyCyle(&T,&stop,&min,&max,&Tstart,&Tstop,&Tmax);
+		dutyCycle=2125;
 		gpioPWM(pinID,dutyCycle);
+		fprintf(stdout,"SetdutyCycle=%u\n",gpioGetPWMdutycycle(pinID));
+		fprintf(stdout,"T=%u, dutyCcycle=%u\n",T,dutyCycle);
 		sleep(1);
 	}
-	
+
 	return 0;
 }

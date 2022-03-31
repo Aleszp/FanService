@@ -1,7 +1,7 @@
 # FanService
 Simple program for keeping Raspberry Pi cool with PWM controlled fan connected tio GPIO pin 18 (hardware PWM pin).
 
-libpigpio required:
+libpigpio required (available under MIT license). Under Raspbian system just install:
 sudo apt install libpigpio-dev
 
 Compilation:
